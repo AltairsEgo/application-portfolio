@@ -1,0 +1,14 @@
+.pagination {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  gap: var(--spacing);
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.active {
+  background-color: #009af9;
+
+  cursor: pointer;
+}

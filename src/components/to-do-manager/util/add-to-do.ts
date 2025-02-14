@@ -1,8 +1,4 @@
-interface Todo {
-  id: number;
-  text: string;
-  done: boolean;
-}
+import { Todo } from "../types";
 
 const addToDo = (toDo: string, toDoList: Todo[]) => {
   const newToDoList = [

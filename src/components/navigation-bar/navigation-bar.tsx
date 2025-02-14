@@ -10,6 +10,9 @@ const NavigationBar = () => {
       <NavLink to="/to-do-manager" className={styles.navLink}>
         To-Do Manager
       </NavLink>
+      <NavLink to="/test" className={styles.navLink}>
+        Test area
+      </NavLink>
     </nav>
   );
 };

@@ -1,48 +1,39 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { addToDo } from "./util/add-to-do";
-
-interface Todo {
-  id: number;
-  text: string;
-  done: boolean;
-}
+import styles from "./to-do-manager.module.css";
+import { Todo } from "./types";
+import { markDone } from "./util/mark-done";
+import { removeToDo } from "./util/remove-to-do";
+import { ToDoManager, ToDo } from "./todo-class/to-do-manager-class";
 
 const TodoManagerApp = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [newTodo, setNewTodo] = useState<string>("");
+  const toDoManager = new ToDoManager();
 
-  const handleNewTodo = () => {
-    setTodos(addToDo(newTodo, todos));
-  };
-
-  const removeTodo = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
-
-  const toggleTodo = (id: number) => {
-    // setTodos(
-    // //   todos.map((todo) =>
-    // //     todo.id === id && { ...todo, done: !todo.done }
-    // //   )
-    // );
-  };
+  const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <div>
+    <div className={styles.todoManagerApp}>
       <h1>Todo Manager</h1>
-      <input
-        type="text"
-        value={newTodo}
-        onChange={(e) => setNewTodo(e.target.value)}
-      />
+      <div className={styles.todoInput}>
+        <input type="text" ref={inputRef} />
 
-      <button onClick={handleNewTodo}>Add</button>
+        <button
+          onClick={() => {
+            toDoManager.add(new ToDo(inputRef.current?.value || "", false));
+            inputRef.current!.value = "";
+          }}
+        >
+          Add
+        </button>
+      </div>
       <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>
-            <input type="radio" onClick={() => toggleTodo(todo.id)}></input>
-            {todo.text}
-            <button onClick={() => removeTodo(todo.id)}>Remove</button>
+        {toDoManager.getTodos().map((todo) => (
+          <li key={todo.getId()} className={styles.todoItemList}>
+            <span className={todo.isDone() ? styles.markedDone : ""}>
+              {todo.getTitle()}
+            </span>
+            <button onClick={() => toDoManager.remove}>Remove</button>
+            <button onClick={() => todo.markDone}>Mark done</button>
           </li>
         ))}
       </ul>

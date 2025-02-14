@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import reportWebVitals from "./reportWebVitals";
 import { TodoManagerApp } from "./components/to-do-manager/to-do-manager-app";
 import { NavigationBar } from "./components/navigation-bar/navigation-bar";
+import { Test } from "./components/test/test";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -16,6 +17,7 @@ root.render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/to-do-manager" element={<TodoManagerApp />} />
+        <Route path="/test" element={<Test />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
